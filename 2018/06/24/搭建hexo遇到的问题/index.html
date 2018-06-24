@@ -3,24 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>I&#39;m back | Just CC Blog</title>
+  <title>搭建hexo遇到的问题 | Just CC Blog</title>
   <meta name="author" content="Mr.Cong">
   
-  <meta name="description" content="#我胡汉三回来啦
-
-这个blog自从搭建好就没写过东西
-也不知道这个MarkDown 怎么用的，先试试。。。
-
-
-
-这是百度吗
-也不知道写点啥，记录一下最近读过的太宰治的一本书吧
-&amp;gt;天使在天空中飞舞，听从神的意志，天使隐去翅膀，宛如降落伞一般，飘落到世界的每一个角落。我飘落在北国的雪原上，你飘">
+  <meta name="description" content="记录下搭建hexo Blog过程中遇到的问题由于搭建hexo已是两年前的事情，搭建过程中的问题已经记不得了。。。。所以讲一下从编写文档到上传过程遇到的问题
+1、无法上传到github-Username错误当用Markdown编写好Blog，然后用命令hexo deploy部署时，报以下错误：erro">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="I&#39;m back"/>
+  <meta property="og:title" content="搭建hexo遇到的问题"/>
   <meta property="og:site_name" content="Just CC Blog"/>
 
   
@@ -80,31 +72,41 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2018-06-24T04:47:03.000Z"><a href="/2018/06/24/I-m-back/">周日, 6月 24 2018, 12:47:03 下午</a></time>
+      <time datetime="2018-06-24T10:55:28.000Z"><a href="/2018/06/24/搭建hexo遇到的问题/">周日, 6月 24 2018, 6:55:28 晚上</a></time>
 
   
-    <h1 class="title">I&#39;m back</h1>
+    <h1 class="title">搭建hexo遇到的问题</h1>
   
 
 
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/hexo/">hexo</a>
+  </div>
 
 <div class="clear"></div>
       
     </header>
     <div class="entry">
       
-        <p>#我胡汉三回来啦</p>
+        <h1 id="记录下搭建hexo-Blog过程中遇到的问题"><a href="#记录下搭建hexo-Blog过程中遇到的问题" class="headerlink" title="记录下搭建hexo Blog过程中遇到的问题"></a>记录下搭建hexo Blog过程中遇到的问题</h1><p>由于搭建hexo已是两年前的事情，搭建过程中的问题已经记不得了。。。。<br>所以讲一下从编写文档到上传过程遇到的问题<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529849062624&amp;di=435590342378c364fb4f463c2d6b625d&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.qqtn.com%2Fup%2F2017-7%2F14998315949453947.jpg" alt=""></p>
+<h2 id="1、无法上传到github-Username错误"><a href="#1、无法上传到github-Username错误" class="headerlink" title="1、无法上传到github-Username错误"></a>1、无法上传到github-Username错误</h2><p>当用Markdown编写好Blog，然后用命令hexo deploy部署时，报以下错误：<br>error: failed to execute prompt script (exit code 1)<br>fatal: could not read Username for ‘<a href="https://github.com" target="_blank" rel="external">https://github.com</a>‘: Invalid argument</p>
 <ul>
-<li>这个blog自从搭建好就没写过东西<blockquote>
-<p>也不知道这个MarkDown 怎么用的，先试试。。。</p>
-</blockquote>
-</li>
+<li>先把_config.yml文件中的type值从github改为git（因为hexo3.0+有一些改变）</li>
+<li>修改之前 <a href="http://github.com/mrchen0910/mrchen0910.github.io.git" target="_blank" rel="external">http://github.com/mrchen0910/mrchen0910.github.io.git</a><br>修改之后 ssh://git@github.com/mrchen0910/mrchen0910.github.io.git  </li>
 </ul>
-<p>这是<a href="http://www.baidu.com" target="_blank" rel="external">百度</a>吗</p>
-<p>也不知道写点啥，记录一下最近读过的太宰治的一本书吧</p>
-<pre><code>&gt;天使在天空中飞舞，听从神的意志，天使隐去翅膀，宛如降落伞一般，飘落到世界的每一个角落。我飘落在北国的雪原上，你飘落在了南国的柑橘地里。
-少年们啊，从今以后，无论你们如何长大，都不要太在意自己的容貌，不要抽烟，也不要喝酒，除非逢年过节。而且，要持之以恒地去爱一个姑娘，一个腼腆又有点害羞的姑娘。
-</code></pre>
+<h2 id="2、Could-not-read-from-remote-repository"><a href="#2、Could-not-read-from-remote-repository" class="headerlink" title="2、Could not read from remote repository"></a>2、Could not read from remote repository</h2><p>接下来又出现了 Host key verification failed. fatal: Could not read from remote repository.错误<br>Please make sure you have the correct access rights<br>and the repository exists.<br>FATAL Something’s wrong. Maybe you can find the solution here: <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">http://hexo.io/docs/troubleshooting.html</a><br>Error: Host key verification failed.<br>fatal: Could not read from remote repository.<br>Please make sure you have the correct access rights<br>and the repository exists.</p>
+<ul>
+<li>生成你的SSH key文件<br>  ssh-keygen -t rsa -b 4096 -C “your_email@example.com”<br>  这里需要你进行操作 :<br>  Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [按回车]<br>  Enter passphrase (empty for no passphrase): [设置一个密码]<br>  Enter same passphrase again: [确认密码]</li>
+<li>生成id_rsa 文件<br>  ssh-add ~/.ssh/id_rsa</li>
+<li>配置GitHub SSH<br>  将公钥拷贝到你的剪切板，登录你的GitHub , 头像 - Settings - SSH and GPG keys - NewSSH key</li>
+<li>测试是否配置成功<br>  ssh -T git@github.com</li>
+</ul>
+<h2 id="配置成功"><a href="#配置成功" class="headerlink" title="配置成功"></a>配置成功</h2><pre><code>配置成功后，再次运行hexo deploy，这样就成功啦
+</code></pre><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529854519844&amp;di=fe00654e2f9891bf75d669dd3ebb1be2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.smzy.com%2Fimges%2F2017%2F0517%2F20170517084236902.jpg" alt=""></p>
+
       
     </div>
     <footer>
@@ -128,10 +130,8 @@
           <div class="clearfix"></div>
           <nav id="pagination">
   
-    <a href="/2018/06/24/搭建hexo遇到的问题/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
   
-  
-    <a href="/2016/10/23/My-First-Article/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+    <a href="/2018/06/24/I-m-back/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
@@ -147,7 +147,7 @@
 
   
       <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-thread-key="/2018/06/24/I-m-back/"></div>
+<div class="ds-thread" data-thread-key="/2018/06/24/搭建hexo遇到的问题/"></div>
 <!-- Duoshuo Comment END -->
   
 </section>
