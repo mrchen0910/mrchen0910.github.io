@@ -99,6 +99,91 @@
   <div class="post-content">
     <header>
       
+      <time datetime="2018-07-07T05:26:44.371Z"><a href="/2018/07/07/nexus迁移/">周六, 7月 7 2018, 1:26:44 下午</a></time>
+
+  
+    <h1 class="title"><a href="/2018/07/07/nexus迁移/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
+<blockquote>
+<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
+</blockquote>
+<p>然后继续将其备份出来。</p>
+<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
+<blockquote>
+<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
+<p>#mkdir /opt/nexus #创建nexus的目录</p>
+</blockquote>
+<p>然后将刚刚备份出来的nexus文件放入其中。</p>
+<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
+<blockquote>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
+<p>#chown -R nexus.nexus /opt/nexus</p>
+</blockquote>
+<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
+<blockquote>
+<p>#vim bin/nexus</p>
+<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
+<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
+<blockquote>
+<p>#nexus start</p>
+</blockquote>
+<p>这样就大功告成啦！</p>
+<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/07/07/nexus迁移/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/07/07/nexus迁移/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/07/nexus迁移/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
       <time datetime="2018-06-24T10:55:28.000Z"><a href="/2018/06/24/搭建hexo遇到的问题/">周日, 6月 24 2018, 6:55:28 晚上</a></time>
 
   

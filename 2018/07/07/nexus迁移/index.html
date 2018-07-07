@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>搭建hexo遇到的问题 | Just CC Blog</title>
+  <title>Just CC Blog</title>
   <meta name="author" content="Mr.Cong">
   
-  <meta name="description" content="记录下搭建hexo Blog过程中遇到的问题由于搭建hexo已是两年前的事情，搭建过程中的问题已经记不得了。。。。所以讲一下从编写文档到上传过程遇到的问题
-1、无法上传到github-Username错误当用Markdown编写好Blog，然后用命令hexo deploy部署时，报以下错误：erro">
+  <meta name="description" content="nexus 从Window迁移至Linux将nexus备份出来因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。这时就需要我们将当前进程关掉。
+
+进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="搭建hexo遇到的问题"/>
+  
   <meta property="og:site_name" content="Just CC Blog"/>
 
   
@@ -72,40 +73,48 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2018-06-24T10:55:28.000Z"><a href="/2018/06/24/搭建hexo遇到的问题/">周日, 6月 24 2018, 6:55:28 晚上</a></time>
+      <time datetime="2018-07-07T05:26:44.371Z"><a href="/2018/07/07/nexus迁移/">周六, 7月 7 2018, 1:26:44 下午</a></time>
 
   
-    <h1 class="title">搭建hexo遇到的问题</h1>
+    <h1 class="title"></h1>
   
 
 
-
-  
-  <div class="tags">
-  	<i class="fa fa-tag"></i>
-    <a href="/tags/hexo/">hexo</a>
-  </div>
 
 <div class="clear"></div>
       
     </header>
     <div class="entry">
       
-        <h1 id="记录下搭建hexo-Blog过程中遇到的问题"><a href="#记录下搭建hexo-Blog过程中遇到的问题" class="headerlink" title="记录下搭建hexo Blog过程中遇到的问题"></a>记录下搭建hexo Blog过程中遇到的问题</h1><p>由于搭建hexo已是两年前的事情，搭建过程中的问题已经记不得了。。。。<br>所以讲一下从编写文档到上传过程遇到的问题<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529849062624&amp;di=435590342378c364fb4f463c2d6b625d&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.qqtn.com%2Fup%2F2017-7%2F14998315949453947.jpg" alt=""></p>
-<h2 id="1、无法上传到github-Username错误"><a href="#1、无法上传到github-Username错误" class="headerlink" title="1、无法上传到github-Username错误"></a>1、无法上传到github-Username错误</h2><p>当用Markdown编写好Blog，然后用命令hexo deploy部署时，报以下错误：<br>error: failed to execute prompt script (exit code 1)<br>fatal: could not read Username for ‘<a href="https://github.com" target="_blank" rel="external">https://github.com</a>‘: Invalid argument</p>
-<ul>
-<li>先把_config.yml文件中的type值从github改为git（因为hexo3.0+有一些改变）</li>
-<li>修改之前 <a href="http://github.com/mrchen0910/mrchen0910.github.io.git" target="_blank" rel="external">http://github.com/mrchen0910/mrchen0910.github.io.git</a><br>修改之后 ssh://git@github.com/mrchen0910/mrchen0910.github.io.git  </li>
-</ul>
-<h2 id="2、Could-not-read-from-remote-repository"><a href="#2、Could-not-read-from-remote-repository" class="headerlink" title="2、Could not read from remote repository"></a>2、Could not read from remote repository</h2><p>接下来又出现了 Host key verification failed. fatal: Could not read from remote repository.错误<br>Please make sure you have the correct access rights<br>and the repository exists.<br>FATAL Something’s wrong. Maybe you can find the solution here: <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">http://hexo.io/docs/troubleshooting.html</a><br>Error: Host key verification failed.<br>fatal: Could not read from remote repository.<br>Please make sure you have the correct access rights<br>and the repository exists.</p>
-<ul>
-<li>生成你的SSH key文件<br>  ssh-keygen -t rsa -b 4096 -C “your_email@example.com”<br>  这里需要你进行操作 :<br>  Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [按回车]<br>  Enter passphrase (empty for no passphrase): [设置一个密码]<br>  Enter same passphrase again: [确认密码]</li>
-<li>生成id_rsa 文件<br>  ssh-add ~/.ssh/id_rsa</li>
-<li>配置GitHub SSH<br>  将公钥拷贝到你的剪切板，登录你的GitHub , 头像 - Settings - SSH and GPG keys - NewSSH key</li>
-<li>测试是否配置成功<br>  ssh -T git@github.com</li>
-</ul>
-<h2 id="配置成功"><a href="#配置成功" class="headerlink" title="配置成功"></a>配置成功</h2><pre><code>配置成功后，再次运行hexo deploy，这样就成功啦
-</code></pre><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529854519844&amp;di=fe00654e2f9891bf75d669dd3ebb1be2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.smzy.com%2Fimges%2F2017%2F0517%2F20170517084236902.jpg" alt=""></p>
+        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
+<blockquote>
+<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
+</blockquote>
+<p>然后继续将其备份出来。</p>
+<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
+<blockquote>
+<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
+<p>#mkdir /opt/nexus #创建nexus的目录</p>
+</blockquote>
+<p>然后将刚刚备份出来的nexus文件放入其中。</p>
+<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
+<blockquote>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
+<p>#chown -R nexus.nexus /opt/nexus</p>
+</blockquote>
+<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
+<blockquote>
+<p>#vim bin/nexus</p>
+<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
+<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
+<blockquote>
+<p>#nexus start</p>
+</blockquote>
+<p>这样就大功告成啦！</p>
+<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
 
       
     </div>
@@ -130,10 +139,8 @@
           <div class="clearfix"></div>
           <nav id="pagination">
   
-    <a href="/2018/07/07/nexus迁移/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
   
-  
-    <a href="/2018/06/24/I-m-back/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+    <a href="/2018/06/24/搭建hexo遇到的问题/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
@@ -149,7 +156,7 @@
 
   
       <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-thread-key="/2018/06/24/搭建hexo遇到的问题/"></div>
+<div class="ds-thread" data-thread-key="/2018/07/07/nexus迁移/"></div>
 <!-- Duoshuo Comment END -->
   
 </section>
