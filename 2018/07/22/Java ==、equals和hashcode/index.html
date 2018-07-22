@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Just CC Blog</title>
+  <title>== 、equals()与hashCode() 的区别与联系 | Just CC Blog</title>
   <meta name="author" content="Mr.Cong">
   
-  <meta name="description" content="nexus 从Window迁移至Linux将nexus备份出来因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。这时就需要我们将当前进程关掉。
+  <meta name="description" content="== 、equals()与hashCode() 的区别与联系equals()equals() 的作用是 用来判断两个对象是否相等。
 
-进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我">
+equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：                 情况1，类没有覆盖equals()方法。则通过equ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="== 、equals()与hashCode() 的区别与联系"/>
   <meta property="og:site_name" content="Just CC Blog"/>
 
   
@@ -73,10 +73,10 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2018-07-07T05:26:44.371Z"><a href="/2018/07/07/nexus迁移/">周六, 7月 7 2018, 1:26:44 下午</a></time>
+      <time datetime="2018-07-22T06:22:04.000Z"><a href="/2018/07/22/Java ==、equals和hashcode/">周日, 7月 22 2018, 2:22:04 下午</a></time>
 
   
-    <h1 class="title"></h1>
+    <h1 class="title">== 、equals()与hashCode() 的区别与联系</h1>
   
 
 
@@ -86,36 +86,17 @@
     </header>
     <div class="entry">
       
-        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
+        <h1 id="、equals-与hashCode-的区别与联系"><a href="#、equals-与hashCode-的区别与联系" class="headerlink" title="== 、equals()与hashCode() 的区别与联系"></a>== 、equals()与hashCode() 的区别与联系</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><p>equals() 的作用是 用来判断两个对象是否相等。</p>
 <blockquote>
-<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
+<p>equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：<br>                 情况1，类没有覆盖equals()方法。则通过equals()比较该类的两个对象时，等价于通过“==”比较这两个对象。<br>                 情况2，类覆盖了equals()方法。一般，我们都覆盖equals()方法来两个对象的内容相等；若它们的内容相等，则返回true(即，认为这两个对象相等)。</p>
 </blockquote>
-<p>然后继续将其备份出来。</p>
-<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
+<h2 id=""><a href="#" class="headerlink" title="=="></a>==</h2><p>== : 它的作用是判断两个对象的地址是不是相等。即，判断两个对象是不是同一个对象。</p>
+<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode()"></a>hashCode()</h2><p>hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。</p>
 <blockquote>
-<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
-<p>#mkdir /opt/nexus #创建nexus的目录</p>
+<p>hashCode() 定义在JDK的Object.java中，这就意味着Java中的任何类都包含有hashCode() 函数。<br>        虽然，每个Java类都包含hashCode() 函数。但是，仅仅当创建并某个“类的散列表”时，该类的hashCode() 才有用，作用是：确定该类的每一个对象在散列表中的位置；其它情况下(例如，创建类的单个对象，或者创建类的对象数组等等)，类的hashCode() 没有作用。<br>       上面的散列表，指的是：Java集合中本质是散列表的类，如HashMap，Hashtable，HashSet。</p>
 </blockquote>
-<p>然后将刚刚备份出来的nexus文件放入其中。</p>
-<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
-<blockquote>
-<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
-<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
-<p>#chown -R nexus.nexus /opt/nexus</p>
-</blockquote>
-<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
-<blockquote>
-<p>#vim bin/nexus</p>
-<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
-<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
-</blockquote>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
-<blockquote>
-<p>#nexus start</p>
-</blockquote>
-<p>这样就大功告成啦！</p>
-<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
-
+<pre><code>也就是说：hashCode() 在散列表中才有用，在其它情况下没用。在散列表中hashCode() 的作用是获取对象的散列码，进而确定该对象在散列表中的位置。
+</code></pre>
       
     </div>
     <footer>
@@ -139,10 +120,10 @@
           <div class="clearfix"></div>
           <nav id="pagination">
   
-    <a href="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+    <a href="/2018/07/22/Java基础知识/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
   
   
-    <a href="/2018/06/24/搭建hexo遇到的问题/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+    <a href="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
@@ -158,7 +139,7 @@
 
   
       <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-thread-key="/2018/07/07/nexus迁移/"></div>
+<div class="ds-thread" data-thread-key="/2018/07/22/Java ==、equals和hashcode/"></div>
 <!-- Duoshuo Comment END -->
   
 </section>
