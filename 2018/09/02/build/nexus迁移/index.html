@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Just CC Blog</title>
+  <meta name="author" content="Mr.Cong">
+  
+  <meta name="description" content="nexus 从Window迁移至Linux将nexus备份出来因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。这时就需要我们将当前进程关掉。
+
+进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Just CC Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Just CC Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="/css/style.css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-368771XX-X']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.816Z"><a href="/2018/09/02/build/nexus迁移/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
+<blockquote>
+<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
+</blockquote>
+<p>然后继续将其备份出来。</p>
+<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
+<blockquote>
+<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
+<p>#mkdir /opt/nexus #创建nexus的目录</p>
+</blockquote>
+<p>然后将刚刚备份出来的nexus文件放入其中。</p>
+<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
+<blockquote>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
+<p>#chown -R nexus.nexus /opt/nexus</p>
+</blockquote>
+<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
+<blockquote>
+<p>#vim bin/nexus</p>
+<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
+<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
+<blockquote>
+<p>#nexus start</p>
+</blockquote>
+<p>这样就大功告成啦！</p>
+<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2018/09/02/build/Windows搭建Flutter/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2018/09/02/code/Java ==、equals和hashcode/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2018/09/02/build/nexus迁移/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 Mr.Cong
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"your_id"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

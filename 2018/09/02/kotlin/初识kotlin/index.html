@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Just CC Blog</title>
+  <meta name="author" content="Mr.Cong">
+  
+  <meta name="description" content="Kotlin语法特点1. ;在Kotlin语法里，代码行不需要用“;”结尾，可写可不写
+2. :定义变量类型    
+
+var name:String=”my name” //变量name为String类型
+
+定义参数类型
+
+fun makeTool(id:Int){ //参数id为Int类型 }
+">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Just CC Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Just CC Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="/css/style.css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-368771XX-X']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.848Z"><a href="/2018/09/02/kotlin/初识kotlin/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="Kotlin语法特点"><a href="#Kotlin语法特点" class="headerlink" title="Kotlin语法特点"></a>Kotlin语法特点</h1><h2 id="1"><a href="#1" class="headerlink" title="1. ;"></a>1. ;</h2><p>在Kotlin语法里，代码行不需要用“;”结尾，可写可不写</p>
+<h2 id="2"><a href="#2" class="headerlink" title="2. :"></a>2. :</h2><p>定义变量类型    </p>
+<blockquote>
+<p>var name:String=”my name” //变量name为String类型</p>
+</blockquote>
+<p>定义参数类型</p>
+<blockquote>
+<p>fun makeTool(id:Int){ //参数id为Int类型 }</p>
+</blockquote>
+<p>定义函数的返回值</p>
+<blockquote>
+<p>fun getAddr(id:Int):String{ //返回值为String类型 }</p>
+</blockquote>
+<p>声明类/接口的继承</p>
+<blockquote>
+<p>class KotlinActivityUI :AnkoComponent<kotlinactivity>{//继承AnkoComponent接口</kotlinactivity></p>
+</blockquote>
+<p>使用Java类</p>
+<blockquote>
+<p>val intent = Intent(this, MainActivity::class.java) //需要用::来使用Java类，注意是两个:</p>
+</blockquote>
+<h2 id="3-new"><a href="#3-new" class="headerlink" title="3. new"></a>3. new</h2><p>Kotlin实例化一个对象时不需要new关键字</p>
+<blockquote>
+<p>var list = ArrayList()</p>
+</blockquote>
+<h2 id="4-var-val"><a href="#4-var-val" class="headerlink" title="4. var val"></a>4. var val</h2><blockquote>
+<p>用var定义变量（像js）</p>
+<p>用val定义常量（相当于final）</p>
+</blockquote>
+<h2 id="5-初始化和延迟加载"><a href="#5-初始化和延迟加载" class="headerlink" title="5. 初始化和延迟加载"></a>5. 初始化和延迟加载</h2><p>var 变量使用lazy懒加载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private val helloTV : TextView by lazy &#123;</span><br><span class="line">        findViewById&lt;TextView&gt;(R.id.tvHello)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>val常量使用lateinit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lateinit var shopCode : String</span><br><span class="line">fun initShopCode(code : String)&#123;</span><br><span class="line">        shopCode = code</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-空指针安全"><a href="#6-空指针安全" class="headerlink" title="6. 空指针安全"></a>6. 空指针安全</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val v1 =num?.toInt() //不做处理返回 null</span><br><span class="line"></span><br><span class="line">val v2 =num?.toInt() ?:0 //判断为空时返回0</span><br><span class="line"></span><br><span class="line">val v3 =num!!.toInt() //抛出空指针异常（用“!!”表示不能为空）</span><br></pre></td></tr></table></figure>
+<h2 id="7-函数"><a href="#7-函数" class="headerlink" title="7. 函数"></a>7. 函数</h2><p>fun 方法名(参数名:类型,参数名:类型…) :返回类型{</p>
+<p>}</p>
+<h2 id="8-is取代instance-of"><a href="#8-is取代instance-of" class="headerlink" title="8. is取代instance of"></a>8. is取代instance of</h2><blockquote>
+<p>if(obj is String)</p>
+</blockquote>
+<h2 id="9-in"><a href="#9-in" class="headerlink" title="9. in"></a>9. in</h2><blockquote>
+<p>if(x in 1..5){ …//检查x数值是否在1到5区间</p>
+<p>for(i in 1..5){ …//遍历1到5</p>
+<p>for(item in list){…//遍历list中的每个元素（相当于Java的for(String item : list)）</p>
+<p>for(i in 3..list.size-2){…相当于for (int i = 3; i &lt;= list.size()-2; i++)</p>
+<p>for(i in list.size downTo 0) {…相当于for (int i = list.size(); i &gt;= 0; i–)</p>
+<p>for(i in (1..5).reversed()) // 反转列表</p>
+<p>for(i in 1.0..2.0 step 0.3) // 步长0.3</p>
+<p>list.forEach {…</p>
+</blockquote>
+<h2 id="10-when取代switch"><a href="#10-when取代switch" class="headerlink" title="10. when取代switch"></a>10. when取代switch</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun doWhen(obj : Any)&#123; //Any 表示未知类型</span><br><span class="line">    when(obj)&#123;// 可同时处理多种类型</span><br><span class="line">        1 -&gt; &quot;is Int&quot;</span><br><span class="line">        in 2..5 -&gt; &quot;在2-5中间&quot;</span><br><span class="line">        &quot;str&quot; -&gt; &quot;is string&quot;</span><br><span class="line">        is Activity -&gt; &quot;is a class&quot;</span><br><span class="line">        else -&gt; &quot;default&quot; //用else替代switch里的default</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-字符串模板"><a href="#11-字符串模板" class="headerlink" title="11. 字符串模板"></a>11. 字符串模板</h2><blockquote>
+<p>“${para0}xivehribuher${para1}xhvihuehewogweg”</p>
+</blockquote>
+<h2 id="12-数据类"><a href="#12-数据类" class="headerlink" title="12. 数据类"></a>12. 数据类</h2><p>无需手写equals() hashCode() 等函数</p>
+<blockquote>
+<p>data class Client(var id:Long,var name:String,var birth:Int,var addr:String)</p>
+</blockquote>
+<h2 id="13-单例模式"><a href="#13-单例模式" class="headerlink" title="13. 单例模式"></a>13. 单例模式</h2><p>单例是很常见的一种设计模式，Kotlin干脆从语言级别提供单例，关键字为object.<br>如果一个类需要被定义为class，又想做成单例，就需要用上一节中提到的companion object<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class SingleCase private constructor()&#123;</span><br><span class="line">    private object Holder&#123;</span><br><span class="line">        val INSTANCE = SingleCase()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    companion object &#123;</span><br><span class="line">        val instance : SingleCase by lazy &#123;</span><br><span class="line">            Holder.INSTANCE</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var b : String? = null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="14-拓展方法和属性"><a href="#14-拓展方法和属性" class="headerlink" title="14. 拓展方法和属性"></a>14. 拓展方法和属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun Activity.showLongToast(msg : String)&#123;</span><br><span class="line">        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="15-类"><a href="#15-类" class="headerlink" title="15. 类"></a>15. 类</h2><p>Kotlin关于类的家族结构的设计，和Java基本相似，但是略有不同：</p>
+<p>Object:取消，在Java里Object是所有类的基类，但在Kotlin里，基类改成了Any</p>
+<p>Any:新增，Kotlin里所有类的基类</p>
+<p>object:新增，Kotlin是区分大小写的，object是Kotlin中的单例类</p>
+<p>new:取消，Kotlin不需要new关键字</p>
+<p>private: 仍然表示私有</p>
+<p>protected: 类似private，在子类中也可见</p>
+<p>internal: 模块内可见</p>
+<p>inner:内部类</p>
+<p>public: 仍然表示共有，但是Kotlin的内部类和参数默认为public</p>
+<p>abstract:仍然表示抽象类</p>
+<p>interface:仍然表示接口</p>
+<p>final:取消，Kotlin的继承和Java不同，Java的类默认可继承，只有final修饰的类不能继承；Kotlin的类默认不能继承，只有为open修饰的类能继承</p>
+<p>open:新增，作用见上一条</p>
+<p>static:取消！Java用static去共享同一块内存空间，这是一个非常实用的设计，不过Kotlin移除了static，用伴随对象（前面提到过的compaion object）的概念替换了static，伴随对象其实是个单例的实体，所以伴随对象比static更加灵活一些，能去继承和扩展。</p>
+<p>继承:在Kotlin里，继承关系统一用“:”，不需要向java那样区分implement和extend，在继承多个类/接口时，中间用“,”区分即可，另外，在继承类时，类后面要跟()。所以在Kotlin里，继承类和接口的代码一般是这样的：</p>
+<p>class BaseClass : Activity(), IBinder{ //示例</p>
+<h2 id="16-构造函数"><a href="#16-构造函数" class="headerlink" title="16. 构造函数"></a>16. 构造函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                    // 主构造函数</span><br><span class="line">class HomeFragment constructor(val id: Long, val name: String, val addr: String) &#123;</span><br><span class="line"></span><br><span class="line">    // 二级构造函数必须代理主构造函数</span><br><span class="line">    constructor(habit: String, id: Long, name: String, addr: String):this(id, name, addr)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="17-init"><a href="#17-init" class="headerlink" title="17. init"></a>17. init</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Person(name : String， age : int)&#123;</span><br><span class="line">    init&#123;</span><br><span class="line">        // to do something</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="18-it，let，apply，run，with，inline"><a href="#18-it，let，apply，run，with，inline" class="headerlink" title="18. it，let，apply，run，with，inline"></a>18. it，let，apply，run，with，inline</h2><blockquote>
+<p>it用来统一代替参数，进一步简化单参数的Lambda表达式</p>
+<p>let能把更复杂的对象赋给it</p>
+<p>apply是操作一个对象，run则是操作一块儿代码</p>
+<p>apply返回操作的对象，run的返回则是最后一行代码的对象</p>
+<p>with有点儿像apply，也是操作一个对象，不过它是用函数方式，把对象作为参数传入with函数，然后在代码块中操作,但是返回像run，也是最后一行</p>
+<p>inline内联函数，其实相当于对代码块的一个标记，这个代码块将在编译时被放进代码的内部，相当于说，内联函数在编译后就被打散到调用它的函数里的，目的是得到一些性能上的优势。</p>
+</blockquote>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 懒加载</span><br><span class="line">     */</span><br><span class="line">    private val helloTV : TextView by lazy &#123;</span><br><span class="line">        findViewById&lt;TextView&gt;(R.id.tvHello)</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * lateinit</span><br><span class="line">     */</span><br><span class="line">    lateinit var shopCode : String</span><br><span class="line">    fun initShopCode(code : String)&#123;</span><br><span class="line">        shopCode = code</span><br><span class="line">    &#125;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        //KotlinActivityUI().setContentView(this)</span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line">    private fun initView() &#123;</span><br><span class="line">        helloTV.text = &quot;lazy boy&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * when</span><br><span class="line">     */</span><br><span class="line">    fun doWhen(obj : Any)&#123; //Any 表示未知类型</span><br><span class="line">        when(obj)&#123;// 可同时处理多种类型</span><br><span class="line">            1 -&gt; &quot;is Int&quot;</span><br><span class="line">            in 2..5 -&gt; &quot;在2-5中间&quot;</span><br><span class="line">            &quot;str&quot; -&gt; &quot;is string&quot;</span><br><span class="line">            is Activity -&gt; &quot;is a class&quot;</span><br><span class="line">            else -&gt; &quot;default&quot; //用else替代switch里的default</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 拓展方法</span><br><span class="line">     */</span><br><span class="line">    fun Activity.showLongToast(msg : String)&#123;</span><br><span class="line">        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+  
+    <a href="/2018/09/02/code/Java基础知识/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2018/09/02/kotlin/初识kotlin/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 Mr.Cong
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"your_id"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

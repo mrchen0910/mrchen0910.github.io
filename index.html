@@ -99,10 +99,10 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2018-07-22T06:31:06.000Z"><a href="/2018/07/22/Android问题汇总/">周日, 7月 22 2018, 2:31:06 下午</a></time>
+      <time datetime="2018-09-02T10:50:18.848Z"><a href="/2018/09/02/kotlin/初识kotlin/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
 
   
-    <h1 class="title"><a href="/2018/07/22/Android问题汇总/">Android问题汇总</a></h1>
+    <h1 class="title"><a href="/2018/09/02/kotlin/初识kotlin/"></a></h1>
   
 
 
@@ -112,7 +112,610 @@
     </header>
     <div class="entry">
       
-        <h2 id="Android基础"><a href="#Android基础" class="headerlink" title="Android基础"></a>Android基础</h2><pre><code>1、什么是ANR 如何避免它？
+        <h1 id="Kotlin语法特点"><a href="#Kotlin语法特点" class="headerlink" title="Kotlin语法特点"></a>Kotlin语法特点</h1><h2 id="1"><a href="#1" class="headerlink" title="1. ;"></a>1. ;</h2><p>在Kotlin语法里，代码行不需要用“;”结尾，可写可不写</p>
+<h2 id="2"><a href="#2" class="headerlink" title="2. :"></a>2. :</h2><p>定义变量类型    </p>
+<blockquote>
+<p>var name:String=”my name” //变量name为String类型</p>
+</blockquote>
+<p>定义参数类型</p>
+<blockquote>
+<p>fun makeTool(id:Int){ //参数id为Int类型 }</p>
+</blockquote>
+<p>定义函数的返回值</p>
+<blockquote>
+<p>fun getAddr(id:Int):String{ //返回值为String类型 }</p>
+</blockquote>
+<p>声明类/接口的继承</p>
+<blockquote>
+<p>class KotlinActivityUI :AnkoComponent<kotlinactivity>{//继承AnkoComponent接口</kotlinactivity></p>
+</blockquote>
+<p>使用Java类</p>
+<blockquote>
+<p>val intent = Intent(this, MainActivity::class.java) //需要用::来使用Java类，注意是两个:</p>
+</blockquote>
+<h2 id="3-new"><a href="#3-new" class="headerlink" title="3. new"></a>3. new</h2><p>Kotlin实例化一个对象时不需要new关键字</p>
+<blockquote>
+<p>var list = ArrayList()</p>
+</blockquote>
+<h2 id="4-var-val"><a href="#4-var-val" class="headerlink" title="4. var val"></a>4. var val</h2><blockquote>
+<p>用var定义变量（像js）</p>
+<p>用val定义常量（相当于final）</p>
+</blockquote>
+<h2 id="5-初始化和延迟加载"><a href="#5-初始化和延迟加载" class="headerlink" title="5. 初始化和延迟加载"></a>5. 初始化和延迟加载</h2><p>var 变量使用lazy懒加载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private val helloTV : TextView by lazy &#123;</span><br><span class="line">        findViewById&lt;TextView&gt;(R.id.tvHello)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>val常量使用lateinit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lateinit var shopCode : String</span><br><span class="line">fun initShopCode(code : String)&#123;</span><br><span class="line">        shopCode = code</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-空指针安全"><a href="#6-空指针安全" class="headerlink" title="6. 空指针安全"></a>6. 空指针安全</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val v1 =num?.toInt() //不做处理返回 null</span><br><span class="line"></span><br><span class="line">val v2 =num?.toInt() ?:0 //判断为空时返回0</span><br><span class="line"></span><br><span class="line">val v3 =num!!.toInt() //抛出空指针异常（用“!!”表示不能为空）</span><br></pre></td></tr></table></figure>
+<h2 id="7-函数"><a href="#7-函数" class="headerlink" title="7. 函数"></a>7. 函数</h2><p>fun 方法名(参数名:类型,参数名:类型…) :返回类型{</p>
+<p>}</p>
+<h2 id="8-is取代instance-of"><a href="#8-is取代instance-of" class="headerlink" title="8. is取代instance of"></a>8. is取代instance of</h2><blockquote>
+<p>if(obj is String)</p>
+</blockquote>
+<h2 id="9-in"><a href="#9-in" class="headerlink" title="9. in"></a>9. in</h2><blockquote>
+<p>if(x in 1..5){ …//检查x数值是否在1到5区间</p>
+<p>for(i in 1..5){ …//遍历1到5</p>
+<p>for(item in list){…//遍历list中的每个元素（相当于Java的for(String item : list)）</p>
+<p>for(i in 3..list.size-2){…相当于for (int i = 3; i &lt;= list.size()-2; i++)</p>
+<p>for(i in list.size downTo 0) {…相当于for (int i = list.size(); i &gt;= 0; i–)</p>
+<p>for(i in (1..5).reversed()) // 反转列表</p>
+<p>for(i in 1.0..2.0 step 0.3) // 步长0.3</p>
+<p>list.forEach {…</p>
+</blockquote>
+<h2 id="10-when取代switch"><a href="#10-when取代switch" class="headerlink" title="10. when取代switch"></a>10. when取代switch</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun doWhen(obj : Any)&#123; //Any 表示未知类型</span><br><span class="line">    when(obj)&#123;// 可同时处理多种类型</span><br><span class="line">        1 -&gt; &quot;is Int&quot;</span><br><span class="line">        in 2..5 -&gt; &quot;在2-5中间&quot;</span><br><span class="line">        &quot;str&quot; -&gt; &quot;is string&quot;</span><br><span class="line">        is Activity -&gt; &quot;is a class&quot;</span><br><span class="line">        else -&gt; &quot;default&quot; //用else替代switch里的default</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-字符串模板"><a href="#11-字符串模板" class="headerlink" title="11. 字符串模板"></a>11. 字符串模板</h2><blockquote>
+<p>“${para0}xivehribuher${para1}xhvihuehewogweg”</p>
+</blockquote>
+<h2 id="12-数据类"><a href="#12-数据类" class="headerlink" title="12. 数据类"></a>12. 数据类</h2><p>无需手写equals() hashCode() 等函数</p>
+<blockquote>
+<p>data class Client(var id:Long,var name:String,var birth:Int,var addr:String)</p>
+</blockquote>
+<h2 id="13-单例模式"><a href="#13-单例模式" class="headerlink" title="13. 单例模式"></a>13. 单例模式</h2><p>单例是很常见的一种设计模式，Kotlin干脆从语言级别提供单例，关键字为object.<br>如果一个类需要被定义为class，又想做成单例，就需要用上一节中提到的companion object<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class SingleCase private constructor()&#123;</span><br><span class="line">    private object Holder&#123;</span><br><span class="line">        val INSTANCE = SingleCase()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    companion object &#123;</span><br><span class="line">        val instance : SingleCase by lazy &#123;</span><br><span class="line">            Holder.INSTANCE</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var b : String? = null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="14-拓展方法和属性"><a href="#14-拓展方法和属性" class="headerlink" title="14. 拓展方法和属性"></a>14. 拓展方法和属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun Activity.showLongToast(msg : String)&#123;</span><br><span class="line">        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="15-类"><a href="#15-类" class="headerlink" title="15. 类"></a>15. 类</h2><p>Kotlin关于类的家族结构的设计，和Java基本相似，但是略有不同：</p>
+<p>Object:取消，在Java里Object是所有类的基类，但在Kotlin里，基类改成了Any</p>
+<p>Any:新增，Kotlin里所有类的基类</p>
+<p>object:新增，Kotlin是区分大小写的，object是Kotlin中的单例类</p>
+<p>new:取消，Kotlin不需要new关键字</p>
+<p>private: 仍然表示私有</p>
+<p>protected: 类似private，在子类中也可见</p>
+<p>internal: 模块内可见</p>
+<p>inner:内部类</p>
+<p>public: 仍然表示共有，但是Kotlin的内部类和参数默认为public</p>
+<p>abstract:仍然表示抽象类</p>
+<p>interface:仍然表示接口</p>
+<p>final:取消，Kotlin的继承和Java不同，Java的类默认可继承，只有final修饰的类不能继承；Kotlin的类默认不能继承，只有为open修饰的类能继承</p>
+<p>open:新增，作用见上一条</p>
+<p>static:取消！Java用static去共享同一块内存空间，这是一个非常实用的设计，不过Kotlin移除了static，用伴随对象（前面提到过的compaion object）的概念替换了static，伴随对象其实是个单例的实体，所以伴随对象比static更加灵活一些，能去继承和扩展。</p>
+<p>继承:在Kotlin里，继承关系统一用“:”，不需要向java那样区分implement和extend，在继承多个类/接口时，中间用“,”区分即可，另外，在继承类时，类后面要跟()。所以在Kotlin里，继承类和接口的代码一般是这样的：</p>
+<p>class BaseClass : Activity(), IBinder{ //示例</p>
+<h2 id="16-构造函数"><a href="#16-构造函数" class="headerlink" title="16. 构造函数"></a>16. 构造函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                    // 主构造函数</span><br><span class="line">class HomeFragment constructor(val id: Long, val name: String, val addr: String) &#123;</span><br><span class="line"></span><br><span class="line">    // 二级构造函数必须代理主构造函数</span><br><span class="line">    constructor(habit: String, id: Long, name: String, addr: String):this(id, name, addr)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="17-init"><a href="#17-init" class="headerlink" title="17. init"></a>17. init</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Person(name : String， age : int)&#123;</span><br><span class="line">    init&#123;</span><br><span class="line">        // to do something</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="18-it，let，apply，run，with，inline"><a href="#18-it，let，apply，run，with，inline" class="headerlink" title="18. it，let，apply，run，with，inline"></a>18. it，let，apply，run，with，inline</h2><blockquote>
+<p>it用来统一代替参数，进一步简化单参数的Lambda表达式</p>
+<p>let能把更复杂的对象赋给it</p>
+<p>apply是操作一个对象，run则是操作一块儿代码</p>
+<p>apply返回操作的对象，run的返回则是最后一行代码的对象</p>
+<p>with有点儿像apply，也是操作一个对象，不过它是用函数方式，把对象作为参数传入with函数，然后在代码块中操作,但是返回像run，也是最后一行</p>
+<p>inline内联函数，其实相当于对代码块的一个标记，这个代码块将在编译时被放进代码的内部，相当于说，内联函数在编译后就被打散到调用它的函数里的，目的是得到一些性能上的优势。</p>
+</blockquote>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 懒加载</span><br><span class="line">     */</span><br><span class="line">    private val helloTV : TextView by lazy &#123;</span><br><span class="line">        findViewById&lt;TextView&gt;(R.id.tvHello)</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * lateinit</span><br><span class="line">     */</span><br><span class="line">    lateinit var shopCode : String</span><br><span class="line">    fun initShopCode(code : String)&#123;</span><br><span class="line">        shopCode = code</span><br><span class="line">    &#125;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        //KotlinActivityUI().setContentView(this)</span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line">    private fun initView() &#123;</span><br><span class="line">        helloTV.text = &quot;lazy boy&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * when</span><br><span class="line">     */</span><br><span class="line">    fun doWhen(obj : Any)&#123; //Any 表示未知类型</span><br><span class="line">        when(obj)&#123;// 可同时处理多种类型</span><br><span class="line">            1 -&gt; &quot;is Int&quot;</span><br><span class="line">            in 2..5 -&gt; &quot;在2-5中间&quot;</span><br><span class="line">            &quot;str&quot; -&gt; &quot;is string&quot;</span><br><span class="line">            is Activity -&gt; &quot;is a class&quot;</span><br><span class="line">            else -&gt; &quot;default&quot; //用else替代switch里的default</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 拓展方法</span><br><span class="line">     */</span><br><span class="line">    fun Activity.showLongToast(msg : String)&#123;</span><br><span class="line">        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/kotlin/初识kotlin/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/kotlin/初识kotlin/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/kotlin/初识kotlin/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.832Z"><a href="/2018/09/02/code/Java基础知识/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/code/Java基础知识/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="Java基础知识"><a href="#Java基础知识" class="headerlink" title="Java基础知识"></a>Java基础知识</h1><h2 id="int、char、long各占多少字节数"><a href="#int、char、long各占多少字节数" class="headerlink" title="int、char、long各占多少字节数"></a>int、char、long各占多少字节数</h2><p>“字节”是byte，“位”是bit ；<br>1 byte = 8 bit ；<br>char 在java中是2个字节。java采用unicode，2个字节（16位）来表示一个字符。<br>short 2个字节<br>int 4个字节<br>long 8个字节</p>
+<h2 id="int与integer的区别"><a href="#int与integer的区别" class="headerlink" title="int与integer的区别"></a>int与integer的区别</h2><p>1、Integer是int的包装类，int则是java的一种基本数据类型<br>2、Integer变量必须实例化后才能使用，而int变量不需要<br>3、Integer实际是对象的引用，当new一个Integer时，实际上是生成一个指针指向此对象；而int则是直接存储数据值<br>4、Integer的默认值是null，int的默认值是0</p>
+<h2 id="String、StringBuffer、StringBuilder区别"><a href="#String、StringBuffer、StringBuilder区别" class="headerlink" title="String、StringBuffer、StringBuilder区别"></a>String、StringBuffer、StringBuilder区别</h2><p>String：适用于少量的字符串操作的情况<br>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况<br>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</p>
+<h2 id="final，finally，finalize的区别"><a href="#final，finally，finalize的区别" class="headerlink" title="final，finally，finalize的区别"></a>final，finally，finalize的区别</h2><p>1、final修饰符（关键字）。被final修饰的类，就意味着不能再派生出新的子类，不能作为父类而被子类继承。因此一个类不能既被abstract声明，又被final声明。将变量或方法声明为final，可以保证他们在使用的过程中不被修改。被声明为final的变量必须在声明时给出变量的初始值，而在以后的引用中只能读取。被final声明的方法也同样只能使用，不能重载。</p>
+<p>2、finally是在异常处理时提供finally块来执行任何清除操作。不管有没有异常被抛出、捕获，finally块都会被执行。try块中的内容是在无异常时执行到结束。catch块中的内容，是在try块内容发生catch所声明的异常时，跳转到catch块中执行。finally块则是无论异常是否发生，都会执行finally块的内容，所以在代码逻辑中有需要无论发生什么都必须执行的代码，就可以放在finally块中。</p>
+<p>3、finalize是方法名。java技术允许使用finalize（）方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的。它是在object类中定义的，因此所有的类都继承了它。子类覆盖finalize（）方法以整理系统资源或者被执行其他清理工作。finalize（）方法是在垃圾收集器删除对象之前对这个对象调用的。</p>
+<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>进程:具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</p>
+<p>线程:进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/code/Java基础知识/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/code/Java基础知识/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/code/Java基础知识/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.832Z"><a href="/2018/09/02/idea/语法糖/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/idea/语法糖/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="什么是语法糖"><a href="#什么是语法糖" class="headerlink" title="什么是语法糖"></a>什么是语法糖</h1><p>在计算机科学中，语法糖(syntactic sugar)是指编程语言中可以更容易的表达一个操作的语法，它可以使程序员更加容易去使用这门语言：操作可以变得更加清晰、方便，或者更加符合程序员的编程习惯。</p>
+<blockquote>
+<p>简单说，语法糖就是为了避免coder出现错误并提高效率的语法层面的一种优雅的解决方案。</p>
+</blockquote>
+<h1 id="这个看不懂-先记下来"><a href="#这个看不懂-先记下来" class="headerlink" title="这个看不懂 先记下来"></a>这个看不懂 先记下来</h1><p><img src="https://img-blog.csdn.net/20180828114156745?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3MDUwNzcy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="语法糖"></p>
+<h1 id="c语言位域"><a href="#c语言位域" class="headerlink" title="c语言位域"></a>c语言位域</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct data&#123;     </span><br><span class="line"></span><br><span class="line">    int a : 32;          //位段a，占32位</span><br><span class="line"></span><br><span class="line">    char b : 5;             //位段b，占5位</span><br><span class="line"></span><br><span class="line">    char c : 2;            //位段c，占2位，和b存储在同一个字节</span><br><span class="line"></span><br><span class="line">    unsigned char : 6;          //无名位段，占6位</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/idea/语法糖/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/idea/语法糖/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/idea/语法糖/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.816Z"><a href="/2018/09/02/build/Windows搭建Flutter/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/build/Windows搭建Flutter/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="Windows平台下搭建Flutter"><a href="#Windows平台下搭建Flutter" class="headerlink" title="Windows平台下搭建Flutter"></a>Windows平台下搭建Flutter</h1><h2 id="1、下载安装Fluttter-SDK"><a href="#1、下载安装Fluttter-SDK" class="headerlink" title="1、下载安装Fluttter SDK"></a>1、下载安装Fluttter SDK</h2><p>在flutter的官网上下载最新的flutterSDK压缩包，解压在你的本地磁盘下；解压后会在flutter的文件夹下看到bin 目录，将该路径配置到系统的环境变量当中。</p>
+<h2 id="2、安装Dart和Flutter插件"><a href="#2、安装Dart和Flutter插件" class="headerlink" title="2、安装Dart和Flutter插件"></a>2、安装Dart和Flutter插件</h2><blockquote>
+<p>1）启动Android Studio<br>2） 打开插件面板如下图所示<br>3）选择【Browse repositories…】，勾选Flutter plug-in 然后点击 install<br>4）当提示是否安装Dart插件时点击Yes<br>5）安装完成后重启AS</p>
+</blockquote>
+<h2 id="3、flutter-doctor"><a href="#3、flutter-doctor" class="headerlink" title="3、flutter doctor"></a>3、flutter doctor</h2>
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/build/Windows搭建Flutter/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/build/Windows搭建Flutter/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/build/Windows搭建Flutter/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.816Z"><a href="/2018/09/02/build/nexus迁移/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/build/nexus迁移/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
+<blockquote>
+<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
+</blockquote>
+<p>然后继续将其备份出来。</p>
+<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
+<blockquote>
+<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
+<p>#mkdir /opt/nexus #创建nexus的目录</p>
+</blockquote>
+<p>然后将刚刚备份出来的nexus文件放入其中。</p>
+<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
+<blockquote>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
+<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
+<p>#chown -R nexus.nexus /opt/nexus</p>
+</blockquote>
+<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
+<blockquote>
+<p>#vim bin/nexus</p>
+<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
+<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
+<blockquote>
+<p>#nexus start</p>
+</blockquote>
+<p>这样就大功告成啦！</p>
+<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/build/nexus迁移/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/build/nexus迁移/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/build/nexus迁移/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.816Z"><a href="/2018/09/02/code/Java ==、equals和hashcode/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/code/Java ==、equals和hashcode/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="、equals-与hashCode-的区别与联系"><a href="#、equals-与hashCode-的区别与联系" class="headerlink" title="== 、equals()与hashCode() 的区别与联系"></a>== 、equals()与hashCode() 的区别与联系</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><p>equals() 的作用是 用来判断两个对象是否相等。</p>
+<blockquote>
+<p>equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：<br>                 情况1，类没有覆盖equals()方法。则通过equals()比较该类的两个对象时，等价于通过“==”比较这两个对象。<br>                 情况2，类覆盖了equals()方法。一般，我们都覆盖equals()方法来两个对象的内容相等；若它们的内容相等，则返回true(即，认为这两个对象相等)。</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title="=="></a>==</h2><p>== : 它的作用是判断两个对象的地址是不是相等。即，判断两个对象是不是同一个对象。</p>
+<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode()"></a>hashCode()</h2><p>hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。</p>
+<blockquote>
+<p>hashCode() 定义在JDK的Object.java中，这就意味着Java中的任何类都包含有hashCode() 函数。<br>        虽然，每个Java类都包含hashCode() 函数。但是，仅仅当创建并某个“类的散列表”时，该类的hashCode() 才有用，作用是：确定该类的每一个对象在散列表中的位置；其它情况下(例如，创建类的单个对象，或者创建类的对象数组等等)，类的hashCode() 没有作用。<br>       上面的散列表，指的是：Java集合中本质是散列表的类，如HashMap，Hashtable，HashSet。</p>
+</blockquote>
+<pre><code>也就是说：hashCode() 在散列表中才有用，在其它情况下没用。在散列表中hashCode() 的作用是获取对象的散列码，进而确定该对象在散列表中的位置。
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/code/Java ==、equals和hashcode/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/code/Java ==、equals和hashcode/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/code/Java ==、equals和hashcode/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.801Z"><a href="/2018/09/02/Android/Android知识点汇总01/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/Android/Android知识点汇总01/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="ddms-和-traceView"><a href="#ddms-和-traceView" class="headerlink" title="ddms 和 traceView"></a>ddms 和 traceView</h1><p>TraceView是AndroidSDK里面自带的工具，用于对Android的应用程序以及Framework层的代码进行性能分析。</p>
+<h1 id="fitsSystemWindows"><a href="#fitsSystemWindows" class="headerlink" title="fitsSystemWindows"></a>fitsSystemWindows</h1><p>android:fitsSystemWindows=”true” 使得该视图进入状态栏当中。</p>
+<h1 id="同步和异步有何异同，在什么情况下分别使用他们？举例说明。"><a href="#同步和异步有何异同，在什么情况下分别使用他们？举例说明。" class="headerlink" title="同步和异步有何异同，在什么情况下分别使用他们？举例说明。"></a>同步和异步有何异同，在什么情况下分别使用他们？举例说明。</h1><p>如果数据将在线程间共享。例如正在写的数据以后可能被另一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就是共享数据，必须进行同步存取。<br>当应用程序在对象上调用了一个需要花费很长时间来执行的方法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效率。</p>
+<h1 id="String和StringBuffer，StringBuilder的区别"><a href="#String和StringBuffer，StringBuilder的区别" class="headerlink" title="String和StringBuffer，StringBuilder的区别"></a>String和StringBuffer，StringBuilder的区别</h1><p>String 字符串常量<br>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全）<br>String的长度是不可变的，StringBuffer，StringBuilder的长度是可变的。如果你对字符串中的内容经常进行操作，特别是内容要修改时，那么使用StringBuffer，如果最后需要String，那么使用StringBuffer的toString()方法。</p>
+<h1 id="什么是单例模式，请写出一个来："><a href="#什么是单例模式，请写出一个来：" class="headerlink" title="什么是单例模式，请写出一个来："></a>什么是单例模式，请写出一个来：</h1><p>Singleton模式主要作用是保证在Java应用程序中，一个类Class只有一个实例存在。<br>一般Singleton模式通常有几种种形式:<br>第一种形式: 定义一个类，它的构造函数为private的，它有一个static的private的该类变量，在类初始化时实例话，通过一个public的getInstance方法获取对它的引用,继而调用其中的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123; </span><br><span class="line"></span><br><span class="line">    private Singleton()&#123;&#125; </span><br><span class="line">    //注意这是private 只供内部调用</span><br><span class="line">    private static Singleton instance = new Singleton();</span><br><span class="line">    //这里提供了一个供外部访问本class的静态方法，可以直接访问  </span><br><span class="line">    public static Singleton getInstance() &#123;</span><br><span class="line">        return instance;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="activity四种启动模式："><a href="#activity四种启动模式：" class="headerlink" title="activity四种启动模式："></a>activity四种启动模式：</h1><p>1、standard：每次激活Activity时(startActivity)，都创建Activity实例，并放入任务栈；<br>2、singleTop：如果某个Activity自己激活自己，即任务栈栈顶就是该Activity，则不需要创建，其余情况都要创建Activity实例；<br>3、singleTask：如果要激活的那个Activity在任务栈中存在该实例，则不需要创建，只需要把此Activity放入栈顶，并把该Activity以上的Activity实例都pop；<br>4、singleInstance：如果应用1的任务栈中创建了MainActivity实例，如果应用2也要激活MainActivity，则不需要创建，两应用共享该Activity实例；</p>
+<h1 id="请描述下Activity的生命周期。"><a href="#请描述下Activity的生命周期。" class="headerlink" title="请描述下Activity的生命周期。"></a>请描述下Activity的生命周期。</h1><p>activity的生命周期方法有：onCreate()、onStart()、onReStart()、onResume()、onPause()、onStop()、onDestory()；</p>
+<h1 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h1><p>内存溢出通俗理解就是软件（应用）运行需要的内存，超出了它可用的最大内存。<br>内存泄漏就是我们对某一内存空间的使用，使用完成后没有释放。<br>内存优化：Android中容易内存溢出的部分，就是图片的加载，我们可以使用图片的压缩加上使用LruCache缓存的目的来控制图片所能够使用的内存。<br>还有对于比较耗资源的对象及时的关闭，例如Database Conn , 各种传感器 ， Service 等等。</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/Android/Android知识点汇总01/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/Android/Android知识点汇总01/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/Android/Android知识点汇总01/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.801Z"><a href="/2018/09/02/Android/RadioGroup的clearcheck触发两次onCheckListener/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/Android/RadioGroup的clearcheck触发两次onCheckListener/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="Android-RadioGroup调用clearCheck-方法时触发两次onCheckChangeListener"><a href="#Android-RadioGroup调用clearCheck-方法时触发两次onCheckChangeListener" class="headerlink" title="Android RadioGroup调用clearCheck() 方法时触发两次onCheckChangeListener"></a>Android RadioGroup调用clearCheck() 方法时触发两次onCheckChangeListener</h1><p>在使用radiogroup的时候发现了一个奇怪的现象：</p>
+<p>当我想用取消所有radioButton的选中状态，使用clearCheck() 方法时，由于我在onCheckedChanged 方法中进行了监听操作，<br>并且进行了网络请求。这时发现进行了两次网络请求，导致列表展示有问题。</p>
+<p>经过一番查证，才发现是调用clearCheck()方法时，会走两次onCheckedChanged 函数，所以需将第一次屏蔽掉，方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 解决RadioGroup.clearCheck()方法返回两次onCheckedChanged</span><br><span class="line">        View checkView = group.findViewById(checkedId);</span><br><span class="line">        if (null != checkView &amp;&amp; !checkView.isPressed())&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>小小记录一下~</p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1530618200381&amp;di=3bce844d4071d9beb099d4bbcfc77752&amp;imgtype=0&amp;src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd50735fae6cd7b8905fb31c3042442a7d8330ede.jpg" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2018/09/02/Android/RadioGroup的clearcheck触发两次onCheckListener/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://yoursite.com/2018/09/02/Android/RadioGroup的clearcheck触发两次onCheckListener/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/Android/RadioGroup的clearcheck触发两次onCheckListener/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-09-02T10:50:18.801Z"><a href="/2018/09/02/Android/Android问题汇总/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
+
+  
+    <h1 class="title"><a href="/2018/09/02/Android/Android问题汇总/"></a></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <h1 id="Android-问题汇总"><a href="#Android-问题汇总" class="headerlink" title="Android 问题汇总"></a>Android 问题汇总</h1><h2 id="Android基础"><a href="#Android基础" class="headerlink" title="Android基础"></a>Android基础</h2><pre><code>1、什么是ANR 如何避免它？
 
 如果耗时操作需要让用户等待，那么可以在界面上显示进度条。
 
@@ -437,13 +1040,13 @@ Java 中一般认为有23 种设计模式，我们不需要所有的都会，但
     <footer>
       
         <div class="alignleft">
-            <a href="/2018/07/22/Android问题汇总/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+            <a href="/2018/09/02/Android/Android问题汇总/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
         </div>
         
         
           <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/22/Android问题汇总/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/22/Android问题汇总/">&nbsp;
+            <a href="http://yoursite.com/2018/09/02/Android/Android问题汇总/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/Android/Android问题汇总/">&nbsp;
               </span>
             </a>
           </div>
@@ -474,70 +1077,10 @@ Java 中一般认为有23 种设计模式，我们不需要所有的都会，但
   <div class="post-content">
     <header>
       
-      <time datetime="2018-07-22T06:30:04.000Z"><a href="/2018/07/22/Windows搭建Flutter/">周日, 7月 22 2018, 2:30:04 下午</a></time>
+      <time datetime="2018-09-02T10:50:18.801Z"><a href="/2018/09/02/Android/ImageView的scaleType用法/">周日, 9月 2 2018, 6:50:18 晚上</a></time>
 
   
-    <h1 class="title"><a href="/2018/07/22/Windows搭建Flutter/">Windows平台下搭建Flutter</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h1 id="Windows平台下搭建Flutter"><a href="#Windows平台下搭建Flutter" class="headerlink" title="Windows平台下搭建Flutter"></a>Windows平台下搭建Flutter</h1><h2 id="1、下载安装Fluttter-SDK"><a href="#1、下载安装Fluttter-SDK" class="headerlink" title="1、下载安装Fluttter SDK"></a>1、下载安装Fluttter SDK</h2><p>在flutter的官网上下载最新的flutterSDK压缩包，解压在你的本地磁盘下；解压后会在flutter的文件夹下看到bin 目录，将该路径配置到系统的环境变量当中。</p>
-<h2 id="2、安装Dart和Flutter插件"><a href="#2、安装Dart和Flutter插件" class="headerlink" title="2、安装Dart和Flutter插件"></a>2、安装Dart和Flutter插件</h2><blockquote>
-<p>1）启动Android Studio<br>2） 打开插件面板如下图所示<br>3）选择【Browse repositories…】，勾选Flutter plug-in 然后点击 install<br>4）当提示是否安装Dart插件时点击Yes<br>5）安装完成后重启AS</p>
-</blockquote>
-<h2 id="3、flutter-doctor"><a href="#3、flutter-doctor" class="headerlink" title="3、flutter doctor"></a>3、flutter doctor</h2>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/07/22/Windows搭建Flutter/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/22/Windows搭建Flutter/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/22/Windows搭建Flutter/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-07-22T06:25:04.000Z"><a href="/2018/07/22/Java基础知识/">周日, 7月 22 2018, 2:25:04 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2018/07/22/Java基础知识/">Java基础知识</a></h1>
+    <h1 class="title"><a href="/2018/09/02/Android/ImageView的scaleType用法/"></a></h1>
   
 
 
@@ -547,506 +1090,34 @@ Java 中一般认为有23 种设计模式，我们不需要所有的都会，但
     </header>
     <div class="entry">
       
-        <h1 id="Java基础知识"><a href="#Java基础知识" class="headerlink" title="Java基础知识"></a>Java基础知识</h1><h2 id="int、char、long各占多少字节数"><a href="#int、char、long各占多少字节数" class="headerlink" title="int、char、long各占多少字节数"></a>int、char、long各占多少字节数</h2><p>“字节”是byte，“位”是bit ；<br>1 byte = 8 bit ；<br>char 在java中是2个字节。java采用unicode，2个字节（16位）来表示一个字符。<br>short 2个字节<br>int 4个字节<br>long 8个字节</p>
-<h2 id="int与integer的区别"><a href="#int与integer的区别" class="headerlink" title="int与integer的区别"></a>int与integer的区别</h2><p>1、Integer是int的包装类，int则是java的一种基本数据类型<br>2、Integer变量必须实例化后才能使用，而int变量不需要<br>3、Integer实际是对象的引用，当new一个Integer时，实际上是生成一个指针指向此对象；而int则是直接存储数据值<br>4、Integer的默认值是null，int的默认值是0</p>
-<h2 id="String、StringBuffer、StringBuilder区别"><a href="#String、StringBuffer、StringBuilder区别" class="headerlink" title="String、StringBuffer、StringBuilder区别"></a>String、StringBuffer、StringBuilder区别</h2><p>String：适用于少量的字符串操作的情况<br>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况<br>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</p>
-<h2 id="final，finally，finalize的区别"><a href="#final，finally，finalize的区别" class="headerlink" title="final，finally，finalize的区别"></a>final，finally，finalize的区别</h2><p>1、final修饰符（关键字）。被final修饰的类，就意味着不能再派生出新的子类，不能作为父类而被子类继承。因此一个类不能既被abstract声明，又被final声明。将变量或方法声明为final，可以保证他们在使用的过程中不被修改。被声明为final的变量必须在声明时给出变量的初始值，而在以后的引用中只能读取。被final声明的方法也同样只能使用，不能重载。</p>
-<p>2、finally是在异常处理时提供finally块来执行任何清除操作。不管有没有异常被抛出、捕获，finally块都会被执行。try块中的内容是在无异常时执行到结束。catch块中的内容，是在try块内容发生catch所声明的异常时，跳转到catch块中执行。finally块则是无论异常是否发生，都会执行finally块的内容，所以在代码逻辑中有需要无论发生什么都必须执行的代码，就可以放在finally块中。</p>
-<p>3、finalize是方法名。java技术允许使用finalize（）方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的。它是在object类中定义的，因此所有的类都继承了它。子类覆盖finalize（）方法以整理系统资源或者被执行其他清理工作。finalize（）方法是在垃圾收集器删除对象之前对这个对象调用的。</p>
-<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>进程:具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</p>
-<p>线程:进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
-
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/07/22/Java基础知识/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/22/Java基础知识/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/22/Java基础知识/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-07-22T06:22:04.000Z"><a href="/2018/07/22/Java ==、equals和hashcode/">周日, 7月 22 2018, 2:22:04 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2018/07/22/Java ==、equals和hashcode/">== 、equals()与hashCode() 的区别与联系</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h1 id="、equals-与hashCode-的区别与联系"><a href="#、equals-与hashCode-的区别与联系" class="headerlink" title="== 、equals()与hashCode() 的区别与联系"></a>== 、equals()与hashCode() 的区别与联系</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><p>equals() 的作用是 用来判断两个对象是否相等。</p>
+        <h1 id="scaleType"><a href="#scaleType" class="headerlink" title="scaleType"></a>scaleType</h1><p>android:scaleType用于设置显示的图片如何缩放或者移动以适应ImageView的大小。</p>
 <blockquote>
-<p>equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：<br>                 情况1，类没有覆盖equals()方法。则通过equals()比较该类的两个对象时，等价于通过“==”比较这两个对象。<br>                 情况2，类覆盖了equals()方法。一般，我们都覆盖equals()方法来两个对象的内容相等；若它们的内容相等，则返回true(即，认为这两个对象相等)。</p>
+<p>fitXY: 对图像的长宽进行独立缩放，使得该图片完全适应ImageView，图片的长宽比一般会发生变化，产生变形。</p>
+<p>fitStart: 保持长宽比缩放图片，直到较长的边与ImageView的边长相等，缩放完成后将图片置于ImageView的左上角。</p>
+<p>fitCenter: 保持长宽比缩放图片，直到较长的边与ImageView的边长相等，缩放完成后将图片置于ImageView的中间。</p>
+<p>fitEnd: 保持长宽比缩放图片，直到较长的边与ImageView的边长相等，缩放完成后将图片置于ImageView的右下角。</p>
+<p>center:保持原图的大小，显示在ImageView的中心。当原图的size大于ImageView的size，超过部分裁剪处理。</p>
+<p>centerCrop:保持长宽比缩放图片,知道完全覆盖ImageView,可能会出现图片的显示不完全</p>
+<p>centerInside:保持长宽比缩放图片,直到ImageView能够完全地显示图片</p>
+<p>matrix:默认值，不改变原图的大小，从ImageView的左上角开始绘制原图，原图超过ImageView的部分作裁剪处理</p>
 </blockquote>
-<h2 id=""><a href="#" class="headerlink" title="=="></a>==</h2><p>== : 它的作用是判断两个对象的地址是不是相等。即，判断两个对象是不是同一个对象。</p>
-<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode()"></a>hashCode()</h2><p>hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。</p>
+<h1 id="图片高度固定，宽度自适应问题"><a href="#图片高度固定，宽度自适应问题" class="headerlink" title="图片高度固定，宽度自适应问题"></a>图片高度固定，宽度自适应问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;ImageView</span><br><span class="line">    android:id=&quot;@+id/shop_type&quot;</span><br><span class="line">    android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:maxHeight=&quot;16dp&quot;</span><br><span class="line">    android:contentDescription=&quot;@null&quot;</span><br><span class="line">    android:adjustViewBounds=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>hashCode() 定义在JDK的Object.java中，这就意味着Java中的任何类都包含有hashCode() 函数。<br>        虽然，每个Java类都包含hashCode() 函数。但是，仅仅当创建并某个“类的散列表”时，该类的hashCode() 才有用，作用是：确定该类的每一个对象在散列表中的位置；其它情况下(例如，创建类的单个对象，或者创建类的对象数组等等)，类的hashCode() 没有作用。<br>       上面的散列表，指的是：Java集合中本质是散列表的类，如HashMap，Hashtable，HashSet。</p>
+<p>adjustViewBounds: 是否保持原图的长宽比，单独设置不起作用，需要配合maxWidth或maxHeight一起使用。</p>
 </blockquote>
-<pre><code>也就是说：hashCode() 在散列表中才有用，在其它情况下没用。在散列表中hashCode() 的作用是获取对象的散列码，进而确定该对象在散列表中的位置。
-</code></pre>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/07/22/Java ==、equals和hashcode/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/22/Java ==、equals和hashcode/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/22/Java ==、equals和hashcode/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-07-22T06:18:04.000Z"><a href="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/">周日, 7月 22 2018, 2:18:04 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/">RadioGroup的clearcheck触发两次onCheckListener</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <p>在使用radiogroup的时候发现了一个奇怪的现象：</p>
-<p>当我想用取消所有radioButton的选中状态，使用clearCheck() 方法时，由于我在onCheckedChanged 方法中进行了监听操作，<br>并且进行了网络请求。这时发现进行了两次网络请求，导致列表展示有问题。</p>
-<p>经过一番查证，才发现是调用clearCheck()方法时，会走两次onCheckedChanged 函数，所以需将第一次屏蔽掉，方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 解决RadioGroup.clearCheck()方法返回两次onCheckedChanged</span><br><span class="line">        View checkView = group.findViewById(checkedId);</span><br><span class="line">        if (null != checkView &amp;&amp; !checkView.isPressed())&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>小小记录一下~</p>
-<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1530618200381&amp;di=3bce844d4071d9beb099d4bbcfc77752&amp;imgtype=0&amp;src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd50735fae6cd7b8905fb31c3042442a7d8330ede.jpg" alt=""></p>
 
       
     </div>
     <footer>
       
         <div class="alignleft">
-            <a href="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+            <a href="/2018/09/02/Android/ImageView的scaleType用法/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
         </div>
         
         
           <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/22/RadioGroup的clearcheck触发两次onCheckListener/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-07-07T05:26:44.371Z"><a href="/2018/07/07/nexus迁移/">周六, 7月 7 2018, 1:26:44 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2018/07/07/nexus迁移/"></a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h1 id="nexus-从Window迁移至Linux"><a href="#nexus-从Window迁移至Linux" class="headerlink" title="nexus 从Window迁移至Linux"></a>nexus 从Window迁移至Linux</h1><h2 id="将nexus备份出来"><a href="#将nexus备份出来" class="headerlink" title="将nexus备份出来"></a>将nexus备份出来</h2><p>因为nexus是跨平台通用的，所以直接将Windows下的nexus文件备份出来就可以，但在备份过程中会报有进程正在使用文件。<br>这时就需要我们将当前进程关掉。</p>
-<blockquote>
-<p>进入nexus 下的bin目录，找到jsw文件夹下对应的计算机操作系统，比如我这里是windows-x86-64。<br>找到stop命令，双击运行，停掉该进程。 </p>
-</blockquote>
-<p>然后继续将其备份出来。</p>
-<h2 id="创建nexus-用户"><a href="#创建nexus-用户" class="headerlink" title="创建nexus 用户"></a>创建nexus 用户</h2><p>然后进入Linux系统下，创建nexus用户:</p>
-<blockquote>
-<p>#useradd nexus  #在创建用户时不能使用 -s /sbin/nologin 参数</p>
-<p>#mkdir /opt/nexus #创建nexus的目录</p>
-</blockquote>
-<p>然后将刚刚备份出来的nexus文件放入其中。</p>
-<h2 id="相关配置信息的修改"><a href="#相关配置信息的修改" class="headerlink" title="相关配置信息的修改"></a>相关配置信息的修改</h2><p>迁移过来之后发现并不能直接进行启动，这时需要给nexus赋予一些权限：</p>
-<blockquote>
-<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/jsw/linux-x86-64/wrapper </p>
-<p>#chmod 777 /opt/nexus/nexus-2.12.0-01/bin/nexus</p>
-<p>#chown -R nexus.nexus /opt/nexus</p>
-</blockquote>
-<p>接下来要修改nexus的配置文件，在vim 下打开bin目录下的 nexus文件：</p>
-<blockquote>
-<p>#vim bin/nexus</p>
-<p>NEXUS_HOME=”/opt/nexus/nexus-2.12.0-01”  #nexus的主目录</p>
-<p>RUN_AS_USER=nexus   #nexus的运行用户</p>
-</blockquote>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>最后一步，运行</p>
-<blockquote>
-<p>#nexus start</p>
-</blockquote>
-<p>这样就大功告成啦！</p>
-<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3054556271,1849999498&amp;fm=27&amp;gp=0.jpg" alt=""></p>
-
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/07/07/nexus迁移/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/07/07/nexus迁移/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/07/07/nexus迁移/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-06-24T10:55:28.000Z"><a href="/2018/06/24/搭建hexo遇到的问题/">周日, 6月 24 2018, 6:55:28 晚上</a></time>
-
-  
-    <h1 class="title"><a href="/2018/06/24/搭建hexo遇到的问题/">搭建hexo遇到的问题</a></h1>
-  
-
-
-
-  
-  <div class="tags">
-  	<i class="fa fa-tag"></i>
-    <a href="/tags/hexo/">hexo</a>
-  </div>
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h1 id="记录下搭建hexo-Blog过程中遇到的问题"><a href="#记录下搭建hexo-Blog过程中遇到的问题" class="headerlink" title="记录下搭建hexo Blog过程中遇到的问题"></a>记录下搭建hexo Blog过程中遇到的问题</h1><p>由于搭建hexo已是两年前的事情，搭建过程中的问题已经记不得了。。。。<br>所以讲一下从编写文档到上传过程遇到的问题<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529849062624&amp;di=435590342378c364fb4f463c2d6b625d&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.qqtn.com%2Fup%2F2017-7%2F14998315949453947.jpg" alt=""></p>
-<h2 id="1、无法上传到github-Username错误"><a href="#1、无法上传到github-Username错误" class="headerlink" title="1、无法上传到github-Username错误"></a>1、无法上传到github-Username错误</h2><p>当用Markdown编写好Blog，然后用命令hexo deploy部署时，报以下错误：<br>error: failed to execute prompt script (exit code 1)<br>fatal: could not read Username for ‘<a href="https://github.com" target="_blank" rel="external">https://github.com</a>‘: Invalid argument</p>
-<ul>
-<li>先把_config.yml文件中的type值从github改为git（因为hexo3.0+有一些改变）</li>
-<li>修改之前 <a href="http://github.com/mrchen0910/mrchen0910.github.io.git" target="_blank" rel="external">http://github.com/mrchen0910/mrchen0910.github.io.git</a><br>修改之后 ssh://git@github.com/mrchen0910/mrchen0910.github.io.git  </li>
-</ul>
-<h2 id="2、Could-not-read-from-remote-repository"><a href="#2、Could-not-read-from-remote-repository" class="headerlink" title="2、Could not read from remote repository"></a>2、Could not read from remote repository</h2><p>接下来又出现了 Host key verification failed. fatal: Could not read from remote repository.错误<br>Please make sure you have the correct access rights<br>and the repository exists.<br>FATAL Something’s wrong. Maybe you can find the solution here: <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">http://hexo.io/docs/troubleshooting.html</a><br>Error: Host key verification failed.<br>fatal: Could not read from remote repository.<br>Please make sure you have the correct access rights<br>and the repository exists.</p>
-<ul>
-<li>生成你的SSH key文件<br>  ssh-keygen -t rsa -b 4096 -C “your_email@example.com”<br>  这里需要你进行操作 :<br>  Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [按回车]<br>  Enter passphrase (empty for no passphrase): [设置一个密码]<br>  Enter same passphrase again: [确认密码]</li>
-<li>生成id_rsa 文件<br>  ssh-add ~/.ssh/id_rsa</li>
-<li>配置GitHub SSH<br>  将公钥拷贝到你的剪切板，登录你的GitHub , 头像 - Settings - SSH and GPG keys - NewSSH key</li>
-<li>测试是否配置成功<br>  ssh -T git@github.com</li>
-</ul>
-<h2 id="配置成功"><a href="#配置成功" class="headerlink" title="配置成功"></a>配置成功</h2><pre><code>配置成功后，再次运行hexo deploy，这样就成功啦
-</code></pre><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1529854519844&amp;di=fe00654e2f9891bf75d669dd3ebb1be2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.smzy.com%2Fimges%2F2017%2F0517%2F20170517084236902.jpg" alt=""></p>
-
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/06/24/搭建hexo遇到的问题/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/06/24/搭建hexo遇到的问题/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/06/24/搭建hexo遇到的问题/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2018-06-24T04:47:03.000Z"><a href="/2018/06/24/I-m-back/">周日, 6月 24 2018, 12:47:03 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2018/06/24/I-m-back/">I&#39;m back</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <p>#我胡汉三回来啦</p>
-<ul>
-<li>这个blog自从搭建好就没写过东西<blockquote>
-<p>也不知道这个MarkDown 怎么用的，先试试。。。</p>
-</blockquote>
-</li>
-</ul>
-<p>这是<a href="http://www.baidu.com" target="_blank" rel="external">百度</a>吗</p>
-<p>也不知道写点啥，记录一下最近读过的太宰治的一本书吧</p>
-<pre><code>&gt;天使在天空中飞舞，听从神的意志，天使隐去翅膀，宛如降落伞一般，飘落到世界的每一个角落。我飘落在北国的雪原上，你飘落在了南国的柑橘地里。
-少年们啊，从今以后，无论你们如何长大，都不要太在意自己的容貌，不要抽烟，也不要喝酒，除非逢年过节。而且，要持之以恒地去爱一个姑娘，一个腼腆又有点害羞的姑娘。
-</code></pre>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2018/06/24/I-m-back/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2018/06/24/I-m-back/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/06/24/I-m-back/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-10-23T15:41:31.000Z"><a href="/2016/10/23/My-First-Article/">周日, 10月 23 2016, 11:41:31 晚上</a></time>
-
-  
-    <h1 class="title"><a href="/2016/10/23/My-First-Article/">My First Article</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/10/23/My-First-Article/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2016/10/23/My-First-Article/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/10/23/My-First-Article/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-06-06T05:39:37.398Z"><a href="/2016/06/06/hello-world/">周一, 6月 6 2016, 1:39:37 下午</a></time>
-
-  
-    <h1 class="title"><a href="/2016/06/06/hello-world/">My First Bolg</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-<p>AndFix，全称是Android hot-fix。是阿里开源的一个Android热补丁框架，允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。</p>
-
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/06/06/hello-world/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://yoursite.com/2016/06/06/hello-world/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/06/06/hello-world/">&nbsp;
+            <a href="http://yoursite.com/2018/09/02/Android/ImageView的scaleType用法/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2018/09/02/Android/ImageView的scaleType用法/">&nbsp;
               </span>
             </a>
           </div>
@@ -1063,6 +1134,8 @@ Java 中一般认为有23 种设计模式，我们不需要所有的都会，但
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">下一页<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
